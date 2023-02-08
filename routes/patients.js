@@ -60,7 +60,7 @@ router.route('/google-login').post(async (req, res) => {
 
         // Decode the jwt
         const decoded = jwt.decode(tokenId, process.env.KEY);
-        const googleId = await decoded.sub;
+        const googleId =  tokenId
 
         console.log(decoded);
 
