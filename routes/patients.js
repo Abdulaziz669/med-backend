@@ -6,6 +6,10 @@ const stripe = require("stripe")("sk_test_51IabQNSCj4BydkZ38AsoDragCM19yaMzGyBVn
 const { v4: uuidv4 } = require('uuid');
 const { Appointment } = appointmentImport;
 
+const {OAuth2Client} = require('google-auth-library');
+
+//const client = new OAuth2Client(CLIENT_ID);
+
 // To get all the patients
 // ** ONLY FOR TESTING **
 router.route('/').get((req, res) => {
@@ -57,6 +61,8 @@ router.route('/google-login').post(async (req, res) => {
         // Decode the jwt
         const decoded = jwt.decode(tokenId, process.env.KEY);
         const googleId = await decoded.sub;
+
+        console.log(decoded);
 
         // Check if the user already exists in the database
         const patient = await Patient.findOne({ googleId: googleId });
